@@ -13,4 +13,11 @@
 class Student < ActiveRecord::Base
   has_many :classroom_students
   has_many :classrooms, through: :classroom_students
+
+  def self.search(query)
+    # puts "Searched students > #{Student.where("name LIKE ?", query)}, #{query}"
+    query.strip.blank? ? Student.all : Student.where("name LIKE ?", "%#{query}%") 
+    # puts "Searched studens > #{Student.where("name LIKE ?", "%query%")}, #{query}"
+    # Student.where("name LIKE ?", "%query%")
+  end
 end
